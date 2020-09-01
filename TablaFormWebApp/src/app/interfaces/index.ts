@@ -1,0 +1,1 @@
+export { RegistroItem } from './registro-item.interface';

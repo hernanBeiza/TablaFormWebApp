@@ -1,0 +1,104 @@
+<div class="container">
+
+  <div class="row">
+
+    <div class="col-md-12">
+
+      <form [formGroup]="mainFormGroup" (ngSubmit)="onSubmit(mainFormGroup.value)">
+        
+        <ngx-datatable
+          class="bootstrap"
+          #myTable
+          [rows]="registros"
+          [reorderable]="'true'"
+          [messages]="{emptyMessage:'Sin datos.'}"
+          [columnMode]="'force'"
+          [headerHeight]="30"
+          [footerHeight]="30"
+          [rowHeight]="'70'"
+          [scrollbarH]="mostrarScrollHorizontal"
+          [scrollbarV]="mostrarScrollVertical"
+          [limit]="10">
+
+          
+          <ngx-datatable-column name="ID" [width]="2">
+            <ng-template let-column="column" ngx-datatable-header-template>
+              <span class="draggable">{{ column.name }}</span>
+            </ng-template>
+            <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+              {{value}}
+            </ng-template>
+          </ngx-datatable-column>
+
+          <ngx-datatable-column name="Glosa" [width]="08">
+            <ng-template let-column="column" ngx-datatable-header-template>
+              <span class="draggable">{{ column.name }}</span>
+            </ng-template>
+            <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+
+              <app-glosa-input [formGroup]="obtenerFormControlPadre(row)" [item]="row"></app-glosa-input>
+
+            </ng-template>
+          </ngx-datatable-column>
+
+          <ngx-datatable-column name="Estado" [width]="80">
+            <ng-template let-column="column" ngx-datatable-header-template>
+              <span class="draggable">{{ column.name }}</span>
+            </ng-template>
+            <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+              
+              <app-registro-estado-select [formGroup]="obtenerFormControlPadre(row)" [item]="row"></app-registro-estado-select>
+
+            </ng-template>
+          </ngx-datatable-column>
+
+
+          <ngx-datatable-footer>
+              <ng-template ngx-datatable-footer-template
+                let-rowCount="rowCount"
+                let-pageSize="pageSize"
+                let-selectedCount="selectedCount"
+                let-curPage="curPage"
+                let-offset="offset">
+                <div style="width:100%" class="text-center">
+                  <div class="row no-gutters">
+                    <div class="col-sm-12 col-md-3 pt-1">
+                      Actual: {{ curPage }} | Total: {{ obtenerTotalDePaginas() }}
+                    </div>
+                    <div class="col-sm-12 col-md-9">
+                      <datatable-pager
+                          [pagerLeftArrowIcon]="'datatable-icon-left'"
+                          [pagerRightArrowIcon]="'datatable-icon-right'"
+                          [pagerPreviousIcon]="'datatable-icon-prev'"
+                          [pagerNextIcon]="'datatable-icon-skip'"
+                          [page]="curPage"
+                          [size]="pageSize"
+                          [count]="rowCount"
+                          [hidden]="!((rowCount / pageSize) > 1)"
+                          (change)="myTable.onFooterPage($event)">
+                      </datatable-pager>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+          </ngx-datatable-footer>
+        </ngx-datatable>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+  <div class="row">
+
+    <div class="col-md-12">
+
+      <button class="btn btn-primary" (click)="onSubmit(mainFormGroup.value)">Guardar</button>
+
+    </div>
+
+  </div>
+
+</div>

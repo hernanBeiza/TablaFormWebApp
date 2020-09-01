@@ -1,0 +1,6 @@
+<select class="form-control" id="exampleFormControlSelect1" 
+[formControl]="registroEstadoFormControl" 
+[name]="item.idHTML"
+[id]="item.id">
+  <option [value]="itemCombo.id" *ngFor="let itemCombo of items">{{itemCombo.glosa}}</option>
+</select>
